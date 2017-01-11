@@ -43,7 +43,7 @@ if (isDeveloping) {
     })
   });
 } else {
-  app.get('*', function(req, res) {
+  app.get('/', function(req, res) {
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
   });
 }
@@ -56,14 +56,12 @@ app.use(bodyParser.json({ type: 'application/json' }));
 
 var port = isProduction ? (process.env.PORT || 80) : 3000;
 
-app.put('/api/login', function(req, res) {
-  const credentials = req.body;
-  if(credentials.user === 'admin' && credentials.password === '123456'){
-    res.cookie('uid', '1', {domain: '127.0.0.1'});
-    res.json({'user': credentials.user, 'role': 'ADMIN', 'uid': 1});
-  }else{
-    res.status('500').send({'message' : '用户名或密码错误！'});
-  }
+app.post('/api/get_user', function(req, res) {
+  const user = {
+    'name': '赵日天',
+    'age': 18
+  };
+  res.json(user);
 });
 
 app.listen(port, function (err, result) {

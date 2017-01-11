@@ -9,7 +9,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-
+        this.props.getUser();    
     }
 
     render() {
